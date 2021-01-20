@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <title>Utilisateurs</title>
+</head>
+<body>
+<h1>Liste des utilisateurs</h1>
+<label th:text="${valeurDansTemplate}"/>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Date de naissance</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="user : ${usersTab}">
+    <tr>
+        <th th:text="${user.id}"></th>
+        <td th:text="${user.lastname}"></td>
+        <td th:text="${user.firstname}"></td>
+        <td th:text="${user.formattedBirthdate}"></td>
+    </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
