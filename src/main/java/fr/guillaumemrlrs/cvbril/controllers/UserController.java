@@ -3,6 +3,7 @@ package fr.guillaumemrlrs.cvbril.controllers;
 import fr.guillaumemrlrs.cvbril.models.User;
 import fr.guillaumemrlrs.cvbril.models.UserLight;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -28,5 +29,17 @@ public class UserController {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         userLight.setFormattedBirthdate(pUser.getBirthdate().format(dtf));
         return userLight;
+    }
+
+    public static User formatUserForBdd(UserLight pUser) {
+        User u = new User();
+        u.setLastname(pUser.getLastname());
+        u.setFirstname(pUser.getFirstname());
+        u.setGitlabId(pUser.getGitlabId());
+        u.setBirthdate(LocalDate.parse(pUser.getFormattedBirthdate()));
+
+        u.setCreatedAt(LocalDate.now());
+        u.setUpdatedAt(LocalDate.now());
+        return u;
     }
 }

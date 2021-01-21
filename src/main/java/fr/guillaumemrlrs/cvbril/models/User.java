@@ -1,7 +1,10 @@
 package fr.guillaumemrlrs.cvbril.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -31,6 +34,10 @@ public class User {
 
     @Column(name="birthdate")
     private LocalDate birthdate;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private List<UserSkills> userSkills;
 
     public User(){
 
@@ -62,6 +69,14 @@ public class User {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public List<UserSkills> getUserSkills() {
+        return userSkills;
+    }
+
+    public void setUserSkills(List<UserSkills> userSkills) {
+        this.userSkills = userSkills;
     }
 
     public void setBirthdate(LocalDate birthdate) {

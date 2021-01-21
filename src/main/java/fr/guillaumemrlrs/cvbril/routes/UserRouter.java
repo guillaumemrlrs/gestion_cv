@@ -7,6 +7,7 @@ import fr.guillaumemrlrs.cvbril.models.UserLight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +40,7 @@ public class UserRouter {
     public String getById(@PathVariable(name="id") String pId, Model model){
         int idInt = Integer.parseInt(pId);
         User userFromBdd = userRepository.findById(idInt).orElseThrow();
+        System.out.println(userFromBdd);
         UserLight user = UserController.formatUser(userFromBdd);
         model.addAttribute("title", user.getFirstname()+" " + user.getLastname());
         model.addAttribute("user",user);
@@ -51,7 +53,10 @@ public class UserRouter {
         return "add-user";
     }
     @RequestMapping(method = RequestMethod.POST, value="/add-user")
-    public String addUserInDatabase(Model model){
-        return "ok";
+    public String addUserInDatabase(@ModelAttribute UserLight pUser, Model model){
+
+        User user = UserController.formatUserForBdd(pUser);
+        userRepository.save(user);
+        return "redirect:/users";
     }
 }
