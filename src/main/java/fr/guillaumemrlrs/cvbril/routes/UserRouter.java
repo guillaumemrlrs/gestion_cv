@@ -44,4 +44,14 @@ public class UserRouter {
         model.addAttribute("user",user);
     return "user";
     }
+
+    @RequestMapping(method = RequestMethod.GET, value="/add-user")
+    public String addUser(Model model){
+        model.addAttribute("user", new UserLight());
+        return "add-user";
+    }
+    @RequestMapping(method = RequestMethod.POST, value="/add-user")
+    public String addUserInDatabase(Model model){
+        return "ok";
+    }
 }

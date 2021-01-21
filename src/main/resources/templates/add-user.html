@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <title>AJOUTER UN UTILISATEUR</title>
+</head>
+<body>
+<form METHOD="POST" th:action="@{/add-user}" th:object="${user}">
+    <div class="mb-3">
+        <label for="lastname-input" class="form-label">Nom de famille</label>
+        <input type="text" class="form-control" id="lastname-input" name="lastname" th:field="*{lastname}">
+    </div>
+    <div class="mb-3">
+        <label for="firstname-input" class="form-label">Prénom</label>
+        <input type="text" class="form-control" id="firstname-input" name="firstname" th:field="*{firstname}">
+    </div>
+    <div class="mb-3">
+        <label for="gitlab-input" class="form-label">Identifiant GitLab</label>
+        <input type="text" class="form-control" id="gitlab-input" name="gitlabId" th:field="*{gitlabId}">
+    </div>
+    <div class="mb-3">
+        <label for="birthdate-input" class="form-label">Date de naissance</label>
+        <input type="date" class="form-control" id="birthdate-input" name="birthdate" th:field="*{formattedBirthdate}">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">ENREGISTRER</button>
+    </div>
+</form>
+</body>
+</html>
