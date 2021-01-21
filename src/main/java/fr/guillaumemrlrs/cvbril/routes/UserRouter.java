@@ -2,6 +2,7 @@ package fr.guillaumemrlrs.cvbril.routes;
 
 import fr.guillaumemrlrs.cvbril.controllers.UserController;
 import fr.guillaumemrlrs.cvbril.dao.UserRepository;
+import fr.guillaumemrlrs.cvbril.models.GitlabResponse;
 import fr.guillaumemrlrs.cvbril.models.User;
 import fr.guillaumemrlrs.cvbril.models.UserLight;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,21 +48,25 @@ public class UserRouter {
         User userFromBdd = userRepository.findById(idInt).orElseThrow();
         System.out.println(userFromBdd);
         UserLight user = UserController.formatUser(userFromBdd);
-        model.addAttribute("title", user.getFirstname()+" " + user.getLastname());
-        model.addAttribute("user",user);
+
 
         if(userFromBdd.getGitlabId() !=null){
-            String uri = "https://gitlab.com/api/v4/users/%22"+userFromBdd.getGitlabId()+"/projects";
-            ResponseEntity<List<Object>> res = null;
+            String uri = "https://gitlab.com/api/v4/users/"+userFromBdd.getGitlabId()+"/projects";
+            ResponseEntity<List<GitlabResponse>> res = null;
             try {
                 RestTemplate restTemplate = new RestTemplate();
-                res = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<Object>>() {
+                res = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<GitlabResponse>>() {
                 });
             }
               catch(Exception e){
                   System.out.println(e.getMessage());
                 }
+            if(res!=null && !res.getBody().isEmpty()){
+                user.setProjects(res.getBody());
             }
+            }
+        model.addAttribute("title", user.getFirstname()+" " + user.getLastname());
+        model.addAttribute("user",user);
     return "user";
     }
 

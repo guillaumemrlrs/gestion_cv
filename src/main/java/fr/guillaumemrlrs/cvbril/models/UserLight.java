@@ -18,6 +18,8 @@ public class UserLight {
 
     private List<UserSkillsLight> userSkillsLights = new ArrayList<>();
 
+    private List<GitlabResponse> projects = new ArrayList<>();
+
     public UserLight() {
     }
 
@@ -85,6 +87,14 @@ public class UserLight {
 
     public void setUserSkillsLights(List<UserSkillsLight> userSkillsLights) {
         this.userSkillsLights = userSkillsLights;
+    }
+
+    public List<GitlabResponse> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<GitlabResponse> projects) {
+        this.projects = projects;
     }
 
     @Override

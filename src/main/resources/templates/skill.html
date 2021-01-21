@@ -23,7 +23,7 @@
     <th:block th:each="skill : ${skills}">
     <tr th:class="${skill.note >= 7 ? 'table-sucess' : ''}">
         <th scope="row" th:text="${skill.id}"></th>
-        <td th:text="${skill.note}"></td>
+        <td th:text="${skill.name}"></td>
         <td th:text="${skill.description}"></td>
         <td th:text="${skill.note}"></td>
     </tr>

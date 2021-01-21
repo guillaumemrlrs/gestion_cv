@@ -1,10 +1,19 @@
 package fr.guillaumemrlrs.cvbril.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GitlabResponse {
 
     private int id;
     private String description;
     private String name;
+
+    @JsonProperty("web_url")
     private String webUrl;
 
     public GitlabResponse(){

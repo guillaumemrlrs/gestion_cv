@@ -21,5 +21,12 @@
     <div th:include="skill.html :: skillsList" th:with="skills=${user.userSkillsLights}"></div>
 </th:block>
 
+    <th:block th:if="${user.projects.isEmpty()}">
+        <div th:include="gitlab.html :: noProject"></div>
+    </th:block>
+    <th:block th:if="${!user.projects.isEmpty()}">
+        <div th:include="gitlab.html :: projectsList" th:with="projects=${user.projects}"></div>
+    </th:block>
+
 </bdy>
 </html>
