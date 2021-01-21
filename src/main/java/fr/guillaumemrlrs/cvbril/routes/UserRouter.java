@@ -5,14 +5,19 @@ import fr.guillaumemrlrs.cvbril.dao.UserRepository;
 import fr.guillaumemrlrs.cvbril.models.User;
 import fr.guillaumemrlrs.cvbril.models.UserLight;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //@Controller permet de renvoyer des pages HTML
 @Controller
@@ -44,8 +49,22 @@ public class UserRouter {
         UserLight user = UserController.formatUser(userFromBdd);
         model.addAttribute("title", user.getFirstname()+" " + user.getLastname());
         model.addAttribute("user",user);
+
+        if(userFromBdd.getGitlabId() !=null){
+            String uri = "https://gitlab.com/api/v4/users/%22"+userFromBdd.getGitlabId()+"/projects";
+            ResponseEntity<List<Object>> res = null;
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                res = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<Object>>() {
+                });
+            }
+              catch(Exception e){
+                  System.out.println(e.getMessage());
+                }
+            }
     return "user";
     }
+
 
     @RequestMapping(method = RequestMethod.GET, value="/add-user")
     public String addUser(Model model){
