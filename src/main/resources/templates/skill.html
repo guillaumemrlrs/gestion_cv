@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <title>Compétences</title>
 </head>
 <body>
-
+<div th:fragment="skillsList">
+<h1>Compétences</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Compétence</th>
+        <th scope="col">Description</th>
+        <th scope="col">Note (/10)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="skill : ${skills}">
+    <tr th:class="${skill.note >= 7 ? 'table-sucess' : ''}">
+        <th scope="row" th:text="${skill.id}"></th>
+        <td th:text="${skill.note}"></td>
+        <td th:text="${skill.description}"></td>
+        <td th:text="${skill.note}"></td>
+    </tr>
+    </th:block>
+    </tbody>
+</table>
+</div>
+<div th:fragment="noSkill">
+    <hr/>
+    <h3>Compétences</h3>
+    <p>Aucune compétence recensée.</p>
+</div>
 </body>
 </html>

@@ -2,7 +2,9 @@ package fr.guillaumemrlrs.cvbril.models;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class UserLight {
     private int id;
@@ -13,6 +15,8 @@ public class UserLight {
     private int age;
 
     private String formattedBirthdate;
+
+    private List<UserSkillsLight> userSkillsLights = new ArrayList<>();
 
     public UserLight() {
     }
@@ -73,6 +77,14 @@ public class UserLight {
         //periode et localdate
             int age= Period.between(birthdate,LocalDate.now()).getYears();
         return age;
+    }
+
+    public List<UserSkillsLight> getUserSkillsLights() {
+        return userSkillsLights;
+    }
+
+    public void setUserSkillsLights(List<UserSkillsLight> userSkillsLights) {
+        this.userSkillsLights = userSkillsLights;
     }
 
     @Override
